@@ -75,4 +75,14 @@ public class DataHelper {
         return faker.name().fullName();
     }
 
+    @Value
+    public static class verificationPayStatus {
+        String code;
+    }
+    @Value
+    public static class verificationCreditPayStatus {
+        String code;
+    }
+
+
 }

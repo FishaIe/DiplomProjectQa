@@ -1,8 +1,15 @@
 package ru.netology.web.test;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
+import org.junit.Assert;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
+import ru.netology.web.data.SQLHelper;
 import ru.netology.web.page.BothPayPage;
 import ru.netology.web.page.PayChoosePage;
 
@@ -10,42 +17,61 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class PayTest {
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+    @BeforeEach
+    void setup() {
+        open("http://localhost:8080");
+    }
+
     @Test
     void SuccessPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getRightAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.validPayMsg();
+        val actual = SQLHelper.getVerificationPayStatus();
+        val expected = "APPROVED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void CorrectPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getCorrectAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.validPayMsg();
+        val actual = SQLHelper.getVerificationPayStatus();
+        val expected = "APPROVED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void ShouldBeDeclinedPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getDeclinedCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.invalidPayMsg();
+        val actual = SQLHelper.getVerificationPayStatus();
+        val expected = "DECLINED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void RandomCardNumberPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongCardAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -56,7 +82,6 @@ public class PayTest {
 
     @Test
     void WrongMonthPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongMonthAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -67,7 +92,6 @@ public class PayTest {
 
     @Test
     void WrongYearPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongYearAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -78,7 +102,6 @@ public class PayTest {
 
     @Test
     void WrongHolderPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongHolderAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -89,40 +112,45 @@ public class PayTest {
 
     @Test
     void SuccessCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getRightAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.creditPayPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.validPayMsg();
+        val actual = SQLHelper.getVerificationCreditPayStatus();
+        val expected = "APPROVED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void CorrectCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getCorrectAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.validPayMsg();
+        val actual = SQLHelper.getVerificationCreditPayStatus();
+        val expected = "APPROVED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void ShouldBeDeclinedCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getDeclinedCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
         BothPayPage.validPay(authInfo);
         BothPayPage.invalidPayMsg();
+        val actual = SQLHelper.getVerificationPayStatus();
+        val expected = "DECLINED";
+        Assert.assertEquals(expected,actual.getCode());
     }
 
     @Test
     void RandomCardNumberCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongCardAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -133,7 +161,6 @@ public class PayTest {
 
     @Test
     void WrongMonthCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongMonthAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -144,7 +171,6 @@ public class PayTest {
 
     @Test
     void WrongYearCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongYearAuthInfo();
         val BothPayPage = new BothPayPage();
@@ -155,7 +181,6 @@ public class PayTest {
 
     @Test
     void WrongHolderCreditPayTest() {
-        open("http://localhost:8080");
         val PayChoosePage = new PayChoosePage();
         val authInfo = DataHelper.getWrongHolderAuthInfo();
         val BothPayPage = new BothPayPage();
