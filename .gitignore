@@ -39,6 +39,7 @@ bin/
 .vscode/
 .idea/
 node_modules/
+data/
 
 ### Mac OS ###
 .DS_Store

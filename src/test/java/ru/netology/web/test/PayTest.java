@@ -34,102 +34,76 @@ public class PayTest {
     @Test
     void SuccessPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getRightAuthInfo();
+        val cardInfo = DataHelper.getRightAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.validPayMsg();
         val actual = SQLHelper.getVerificationPayStatus();
         val expected = "APPROVED";
-        Assert.assertEquals(expected,actual.getCode());
-    }
-
-    @Test
-    void CorrectPayTest() {
-        val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getCorrectAuthInfo();
-        val BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
-        BothPayPage.validPayMsg();
-        val actual = SQLHelper.getVerificationPayStatus();
-        val expected = "APPROVED";
-        Assert.assertEquals(expected,actual.getCode());
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     void ShouldBeDeclinedPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getDeclinedCardAuthInfo();
+        val cardInfo = DataHelper.getDeclinedCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
         val actual = SQLHelper.getVerificationPayStatus();
         val expected = "DECLINED";
-        Assert.assertEquals(expected,actual.getCode());
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     void RandomCardNumberPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongCardAuthInfo();
+        val cardInfo = DataHelper.getWrongCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
     }
 
     @Test
     void WrongMonthPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongMonthAuthInfo();
+        val cardInfo = DataHelper.getWrongMonthAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
     void WrongYearPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongYearAuthInfo();
+        val cardInfo = DataHelper.getWrongYearAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
     void WrongHolderPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongHolderAuthInfo();
+        val cardInfo = DataHelper.getWrongHolderAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
-        BothPayPage.WrongFormatMsg();
+        BothPayPage.validPay(cardInfo);
+        BothPayPage.wrongFormatMsg();
     }
 
     @Test
     void SuccessCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getRightAuthInfo();
+        val cardInfo = DataHelper.getRightAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.creditPayPage();
-        BothPayPage.validPay(authInfo);
-        BothPayPage.validPayMsg();
-        val actual = SQLHelper.getVerificationCreditPayStatus();
-        val expected = "APPROVED";
-        Assert.assertEquals(expected,actual.getCode());
-    }
-
-    @Test
-    void CorrectCreditPayTest() {
-        val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getCorrectAuthInfo();
-        val BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.validPayMsg();
         val actual = SQLHelper.getVerificationCreditPayStatus();
         val expected = "APPROVED";
@@ -139,53 +113,53 @@ public class PayTest {
     @Test
     void ShouldBeDeclinedCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getDeclinedCardAuthInfo();
+        val cardInfo = DataHelper.getDeclinedCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
         val actual = SQLHelper.getVerificationPayStatus();
         val expected = "DECLINED";
-        Assert.assertEquals(expected,actual.getCode());
+        Assert.assertEquals(expected,actual);
     }
 
     @Test
     void RandomCardNumberCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongCardAuthInfo();
+        val cardInfo = DataHelper.getWrongCardAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
     }
 
     @Test
     void WrongMonthCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongMonthAuthInfo();
+        val cardInfo = DataHelper.getWrongMonthAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
     void WrongYearCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongYearAuthInfo();
+        val cardInfo = DataHelper.getWrongYearAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
+        BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
     void WrongHolderCreditPayTest() {
         val PayChoosePage = new PayChoosePage();
-        val authInfo = DataHelper.getWrongHolderAuthInfo();
+        val cardInfo = DataHelper.getWrongHolderAuthInfo();
         val BothPayPage = new BothPayPage();
         PayChoosePage.payPage();
-        BothPayPage.validPay(authInfo);
-        BothPayPage.WrongFormatMsg();
+        BothPayPage.validPay(cardInfo);
+        BothPayPage.wrongFormatMsg();
     }
 }

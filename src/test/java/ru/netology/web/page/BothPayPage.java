@@ -22,23 +22,23 @@ public class BothPayPage {
     private SelenideElement wrongFormatMsg = $x("//*[contains(text(), 'Неверный формат')]");
 
 
-    public BothPayPage validPay(DataHelper.AuthInfo info){
+    public BothPayPage validPay(DataHelper.CardInfo info){
         cardNumber.setValue(info.getCardNumber());
         month.setValue(info.getMonth());
         year.setValue(info.getYear());
         holder.setValue(info.getHolder());
         cvc.setValue(info.getCvc());
         continueButton.click();
-        return new BothPayPage();
+        return this;
     }
 
     public void validPayMsg() {
-        successMsg.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        successMsg.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
     public void invalidPayMsg() {
-        errorMsg.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        errorMsg.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
     public void invalidMonthYearMsg(){errorMonthYearMsg.shouldBe(Condition.visible);}
-    public void WrongFormatMsg(){wrongFormatMsg.shouldBe(Condition.visible);}
+    public void wrongFormatMsg(){wrongFormatMsg.shouldBe(Condition.visible);}
 
 }

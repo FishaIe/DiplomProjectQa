@@ -21,25 +21,21 @@ public class SQLHelper {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/app","app","pass");
     }
 
-    public static DataHelper.verificationPayStatus getVerificationPayStatus() {
+    @SneakyThrows
+    public static String getVerificationPayStatus() {
         var codeSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var status = runner.query(conn, codeSQL, new ScalarHandler<String>());
-            return new DataHelper.verificationPayStatus(status);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+         {
+            var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
+            return status;
         }
-        return null;
     }
 
-    public static DataHelper.verificationCreditPayStatus getVerificationCreditPayStatus() {
+    @SneakyThrows
+    public static DataHelper.verificationPayStatus getVerificationCreditPayStatus() {
         var codeSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var status = runner.query(conn, codeSQL, new ScalarHandler<String>());
-            return new DataHelper.verificationCreditPayStatus(status);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+         {
+            var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
+            return new DataHelper.verificationPayStatus(status);
         }
-        return null;
     }
 }

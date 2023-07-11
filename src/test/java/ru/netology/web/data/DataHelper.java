@@ -2,6 +2,8 @@ package ru.netology.web.data;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import java.util.Locale;
 
@@ -13,7 +15,7 @@ public class DataHelper {
     private static final Faker faker = new Faker(new Locale("en"));
 
     @Value
-    public static class AuthInfo {
+    public static class CardInfo {
         private String cardNumber;
         private String month;
         private String year;
@@ -21,30 +23,26 @@ public class DataHelper {
         private String cvc;
     }
 
-    public static AuthInfo getRightAuthInfo() {
-        return new AuthInfo(getFirstCard(), getMonth(),getYear(),getHolder(),getCvc());
+    public static CardInfo getRightAuthInfo() {
+        return new CardInfo(getFirstCard(), getMonth(1),getYear(1),getHolder(),getCvc());
+    }
+    public static CardInfo getDeclinedCardAuthInfo() {
+        return new CardInfo(getSecondCard(),getMonth(1),getYear(1),getHolder(),getCvc());
+    }
+    public static CardInfo getWrongCardAuthInfo() {
+        return new CardInfo(getRandomCard(),getMonth(1),getYear(1),getHolder(),getCvc());
     }
 
-    public static AuthInfo getCorrectAuthInfo() {
-        return new AuthInfo(getFirstCard(), "12","23",getHolder(),getCvc());
-    }
-    public static AuthInfo getDeclinedCardAuthInfo() {
-        return new AuthInfo(getSecondCard(),getMonth(),getYear(),getHolder(),getCvc());
-    }
-    public static AuthInfo getWrongCardAuthInfo() {
-        return new AuthInfo(getRandomCard(),getMonth(),getYear(),getHolder(),getCvc());
+    public static CardInfo getWrongMonthAuthInfo() {
+        return new CardInfo(getRandomCard(),"13",getYear(1),getHolder(),getCvc());
     }
 
-    public static AuthInfo getWrongMonthAuthInfo() {
-        return new AuthInfo(getRandomCard(),"30",getYear(),getHolder(),getCvc());
+    public static CardInfo getWrongYearAuthInfo() {
+        return new CardInfo(getRandomCard(),getMonth(1),getYear(6),getHolder(),getCvc());
     }
 
-    public static AuthInfo getWrongYearAuthInfo() {
-        return new AuthInfo(getRandomCard(),getMonth(),"50",getHolder(),getCvc());
-    }
-
-    public static AuthInfo getWrongHolderAuthInfo() {
-        return new AuthInfo(getRandomCard(),getMonth(),getYear(),"4215125",getCvc());
+    public static CardInfo getWrongHolderAuthInfo() {
+        return new CardInfo(getRandomCard(),getMonth(1),getYear(1),"4215125",getCvc());
     }
 
     public static String getFirstCard() {
@@ -63,12 +61,12 @@ public class DataHelper {
         return faker.number().digits(3);
     }
 
-    public static String getMonth() {
-        return "0" + String.valueOf( faker.number().numberBetween(1,9));
+    public static String getMonth(int months) {
+        return LocalDate.now().plusMonths(months).format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    public static String getYear() {
-        return String.valueOf(faker.number().numberBetween(24,28));
+    public static String getYear(int years) {
+        return LocalDate.now().plusYears(years).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getHolder() {
@@ -79,10 +77,5 @@ public class DataHelper {
     public static class verificationPayStatus {
         String code;
     }
-    @Value
-    public static class verificationCreditPayStatus {
-        String code;
-    }
-
 
 }
