@@ -23,25 +23,25 @@ public class DataHelper {
         private String cvc;
     }
 
-    public static CardInfo getRightAuthInfo() {
+    public static CardInfo getRightCardInfo() {
         return new CardInfo(getFirstCard(), getMonth(1),getYear(1),getHolder(),getCvc());
     }
-    public static CardInfo getDeclinedCardAuthInfo() {
+    public static CardInfo getDeclinedCardInfo() {
         return new CardInfo(getSecondCard(),getMonth(1),getYear(1),getHolder(),getCvc());
     }
-    public static CardInfo getWrongCardAuthInfo() {
+    public static CardInfo getWrongCardInfo() {
         return new CardInfo(getRandomCard(),getMonth(1),getYear(1),getHolder(),getCvc());
     }
 
-    public static CardInfo getWrongMonthAuthInfo() {
+    public static CardInfo getWrongMonthCardInfo() {
         return new CardInfo(getRandomCard(),"13",getYear(1),getHolder(),getCvc());
     }
 
-    public static CardInfo getWrongYearAuthInfo() {
+    public static CardInfo getWrongYearCardInfo() {
         return new CardInfo(getRandomCard(),getMonth(1),getYear(6),getHolder(),getCvc());
     }
 
-    public static CardInfo getWrongHolderAuthInfo() {
+    public static CardInfo getWrongHolderCardInfo() {
         return new CardInfo(getRandomCard(),getMonth(1),getYear(1),"4215125",getCvc());
     }
 
@@ -71,11 +71,6 @@ public class DataHelper {
 
     public static String getHolder() {
         return faker.name().fullName();
-    }
-
-    @Value
-    public static class verificationPayStatus {
-        String code;
     }
 
 }

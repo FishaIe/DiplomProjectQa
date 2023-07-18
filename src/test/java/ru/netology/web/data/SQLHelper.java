@@ -24,18 +24,14 @@ public class SQLHelper {
     @SneakyThrows
     public static String getVerificationPayStatus() {
         var codeSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-         {
-            var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
-            return status;
-        }
+        var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
+        return status;
     }
 
     @SneakyThrows
-    public static DataHelper.verificationPayStatus getVerificationCreditPayStatus() {
+    public static String getVerificationCreditPayStatus() {
         var codeSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-         {
-            var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
-            return new DataHelper.verificationPayStatus(status);
-        }
+        var status = runner.query(getConn(), codeSQL, new ScalarHandler<String>());
+        return status;
     }
 }

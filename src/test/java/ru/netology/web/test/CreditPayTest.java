@@ -14,7 +14,7 @@ import ru.netology.web.page.PayChoosePage;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class PayTest {
+public class CreditPayTest {
 
     @BeforeAll
     static void setUpAll() {
@@ -31,24 +31,24 @@ public class PayTest {
     }
 
     @Test
-    void successPayTest() {
+    void successCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getRightCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.validPayMsg();
-        var actual = SQLHelper.getVerificationPayStatus();
+        var actual = SQLHelper.getVerificationCreditPayStatus();
         var expected = "APPROVED";
         Assert.assertEquals(expected,actual);
     }
 
     @Test
-    void shouldBeDeclinedPayTest() {
+    void shouldBeDeclinedCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getDeclinedCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
         var actual = SQLHelper.getVerificationPayStatus();
@@ -57,41 +57,41 @@ public class PayTest {
     }
 
     @Test
-    void randomCardNumberPayTest() {
+    void randomCardNumberCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getWrongCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
     }
 
     @Test
-    void wrongMonthPayTest() {
+    void wrongMonthCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getWrongMonthCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
-    void wrongYearPayTest() {
+    void wrongYearCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getWrongYearCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidMonthYearMsg();
     }
 
     @Test
-    void wrongHolderPayTest() {
+    void wrongHolderCreditPayTest() {
         var PayChoosePage = new PayChoosePage();
         var cardInfo = DataHelper.getWrongHolderCardInfo();
         var BothPayPage = new BothPayPage();
-        PayChoosePage.payPage();
+        PayChoosePage.creditPayPage();
         BothPayPage.validPay(cardInfo);
         BothPayPage.wrongFormatMsg();
     }
