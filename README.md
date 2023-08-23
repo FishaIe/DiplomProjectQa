@@ -4,8 +4,13 @@
 
 Для того чтобы запустить проект, нужно открыть 2 терминала:
 1) в первом терминале прописываем команду `docker-compose up`, для запуска докера и эмулятора банка;
-2) во втором терминале прописываем команду для *postgres* - `java “-Dspring.datasource.url=jdbc:postgresql://localhost:5432/kuularbase” “-Dspring.datasource.username=kuular” “-Dspring.datasource.password=12345v” -jar artifacts/aqa-shop.jar`, 
-для *mySQL* `java “-Dspring.datasource.url=jdbc:mysql://localhost:3306/app” “-Dspring.datasource.username=app” “-Dspring.datasource.password=pass” -jar artifacts/aqa-shop.jar` чтобы запустить джарник проекта с определёнными параметрами.
+2) во втором терминале прописываем команду
+
+для *postgres* - `java “-Dspring.datasource.url=jdbc:postgresql://localhost:5432/kuularbase” “-Dspring.datasource.username=kuular” “-Dspring.datasource.password=12345v” -jar artifacts/aqa-shop.jar`, 
+
+для *mySQL* `java “-Dspring.datasource.url=jdbc:mysql://localhost:3306/app” “-Dspring.datasource.username=app” “-Dspring.datasource.password=pass” -jar artifacts/aqa-shop.jar` 
+
+чтобы запустить джарник проекта с определёнными параметрами.
 
 Все эти терминалы больше трогать и закрывать не нужно.
 
