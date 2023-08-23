@@ -27,7 +27,7 @@ public class PayTest {
 
     @BeforeEach
     void setup() {
-        open("http://localhost:8080");
+        open("http://localhost:8080/");
     }
 
     @Test
@@ -39,7 +39,8 @@ public class PayTest {
         BothPayPage.validPay(cardInfo);
         BothPayPage.validPayMsg();
         var actual = SQLHelper.getVerificationPayStatus();
-        var expected = "APPROVED";
+        var value = System.getProperty("db.approved","APPROVED");
+        var expected = value; //APPROVED
         Assert.assertEquals(expected,actual);
     }
 
@@ -52,7 +53,8 @@ public class PayTest {
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
         var actual = SQLHelper.getVerificationPayStatus();
-        var expected = "DECLINED";
+        var value = System.getProperty("db.declined","DECLINED");
+        var expected = value; // DECLINED
         Assert.assertEquals(expected,actual);
     }
 
