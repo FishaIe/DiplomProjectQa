@@ -10,8 +10,6 @@
 
 для *Postgres* - `java “-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app” “-Dspring.datasource.username=app” “-Dspring.datasource.password=pass” -jar artifacts/aqa-shop.jar`
 
-чтобы запустить джарник проекта с определёнными параметрами.
-
 Все эти терминалы больше трогать и закрывать не нужно.
 
 ### Запуск тестов
