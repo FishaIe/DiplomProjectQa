@@ -29,9 +29,7 @@ dependencies {
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'com.codeborne:selenide:6.17.0'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'io.rest-assured:rest-assured:5.3.0'
     testImplementation 'io.qameta.allure:allure-selenide:2.21.0'
-    testImplementation 'junit:junit:4.13.2'
 }
 
 test {

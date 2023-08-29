@@ -2,11 +2,7 @@ package ru.netology.web.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.Assert;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.data.SQLHelper;
 import ru.netology.web.page.BothPayPage;
@@ -39,9 +35,8 @@ public class PayTest {
         BothPayPage.validPay(cardInfo);
         BothPayPage.validPayMsg();
         var actual = SQLHelper.getVerificationPayStatus();
-        var value = System.getProperty("db.approved","APPROVED");
-        var expected = value; //APPROVED
-        Assert.assertEquals(expected,actual);
+        var expected = "APPROVED";
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
@@ -53,9 +48,8 @@ public class PayTest {
         BothPayPage.validPay(cardInfo);
         BothPayPage.invalidPayMsg();
         var actual = SQLHelper.getVerificationPayStatus();
-        var value = System.getProperty("db.declined","DECLINED");
-        var expected = value; // DECLINED
-        Assert.assertEquals(expected,actual);
+        var expected = "DECLINED";
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test
